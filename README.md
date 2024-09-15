@@ -1,2 +1,2 @@
 # percolation
-percolation simulation programing
+percolation simulation programe
