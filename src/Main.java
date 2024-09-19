@@ -2,6 +2,7 @@ import GUI.UpdateConnection;
 import Logic.UF;
 import GUI.Visualizer;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -12,16 +13,14 @@ public class Main {
     Visualizer visualizer;
 
     Main () {
-        this.tables = new boolean[][]{
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-                {false, false, false, false, false, false},
-        };
+        int w = 10;
+        int h = 10;
+        this.tables = new boolean[h][w];
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                this.tables[i][j] = false;
+            }
+        }
 
         this.uf = new UF(tables[0].length,tables.length);
         this.h = tables.length;
@@ -42,18 +41,15 @@ public class Main {
         for (int i = 0; i < this.h; i++) {
             for (int j = 0; j < this.w; j++) {
                 boolean currentSell = this.tables[i][j];
+                Color color = currentSell ? Color.white : Color.black;
+                this.visualizer.updatePanel(i, j,color);
                 if (!currentSell) {
                     continue;
                 }
                 makeConnection(i,j);
             }
         }
-
-        if(this.uf.percolating()){
-            setColor();
-        } else {
-            this.visualizer.render(this.tables);
-        }
+        setColor();
     }
     public void makeConnection(int i, int j) {
         int currentNode = (this.w * i) + j + 1;
@@ -96,7 +92,7 @@ public class Main {
             int j = child % this.w;
 
             if (this.tables[i][j]) {
-                this.visualizer.updatePanel(i, j);
+                this.visualizer.updatePanel(i, j,Color.CYAN);
             }
         }
     }

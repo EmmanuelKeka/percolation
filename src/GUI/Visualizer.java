@@ -40,8 +40,8 @@ public class Visualizer extends JFrame{
         setSize(500,500);
     }
 
-    public void updatePanel (int i, int j){
-        this.panels[i][j].setBackground(Color.cyan);
+    public void updatePanel (int i, int j, Color color){
+        this.panels[i][j].setBackground(color);
     }
 
     public void render (boolean [][] tables) {
